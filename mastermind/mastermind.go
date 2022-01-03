@@ -16,17 +16,17 @@ const RIGHT_COLOR_NUM = 1
 const RIGHT_SPOT_NUM = 2
 
 var NUM_2_SYMBOL = map[int]string{
-	0:"_",
-	1:"x",
-	2:"o",
-	3:"G",
-	4:"O",
-	5:"Y",
-	6:"B",
-	7:"K",
-	8:"R",
-	9:"C",
-	10:"V",
+	0:  "_",
+	1:  "x",
+	2:  "o",
+	3:  "G",
+	4:  "O",
+	5:  "Y",
+	6:  "B",
+	7:  "K",
+	8:  "R",
+	9:  "C",
+	10: "V",
 }
 var SYMBOLS_2_NUMS = reverseMapping(NUM_2_SYMBOL)
 
@@ -35,10 +35,10 @@ func main() {
 	board := initMatrix()
 	hints := initMatrix()
 	attempt := 0
-    guessed := false
-	
+	guessed := false
+
 	printBoard(board, hints)
-	
+
 	for !guessed && attempt < ROWS {
 		attempt++
 		fmt.Println("******** Attempt #", attempt, " ********")
@@ -58,7 +58,7 @@ func main() {
 		printBoard(board, hints)
 	}
 	if guessed {
-		fmt.Println("Perfect! You guessed the code! The attempt number is:", attempt) 
+		fmt.Println("Perfect! You guessed the code! The attempt number is:", attempt)
 	} else {
 		fmt.Println("Unlucky, unlucky! Unfortunetely you didn't guess the right code")
 		fmt.Println("The right code is:", code)
@@ -116,7 +116,7 @@ func checkWin(hints []int) bool {
 
 func updateMatrix(matrixPointer *[][]int, tab []int, attempt int) {
 	matrix := *matrixPointer
-	row := matrix[ROWS - attempt]
+	row := matrix[ROWS-attempt]
 	for i, tabElement := range tab {
 		row[i] = tabElement
 	}
@@ -136,19 +136,19 @@ func analyzeGuessesAndGetHints(secret []int, guesses []int) []int {
 			}
 		}
 	}
-	
+
 	hints := make([]int, COLS)
-	
+
 	for i := 0; i < guessedSpots; i++ {
 		hints[i] = RIGHT_SPOT_NUM
 	}
-	
+
 	if COLS == guessedSpots {
 		return hints
 	}
-	
+
 	colorsCountToMark := guessedColors - guessedSpots
-	for i := guessedSpots; i < guessedSpots + colorsCountToMark; i++ {
+	for i := guessedSpots; i < guessedSpots+colorsCountToMark; i++ {
 		hints[i] = RIGHT_COLOR_NUM
 	}
 	return hints
@@ -156,7 +156,7 @@ func analyzeGuessesAndGetHints(secret []int, guesses []int) []int {
 
 func printBoard(board [][]int, hints [][]int) {
 	for i, row := range board {
-		fmt.Print(ROWS - i, ": ")
+		fmt.Print(ROWS-i, ": ")
 		for _, col := range row {
 			fmt.Print(NUM_2_SYMBOL[col], " ")
 		}
